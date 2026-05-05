@@ -3,39 +3,47 @@ import { useState } from "react";
 import Form from "./Form";
 import Todo from "./Todo";
 
-interface SingleToDo {
+// style
+import { createGlobalStyle, styled } from "styled-components";
+const GlobalStyle = createGlobalStyle`
+  body{
+    background: #0e0c28;
+    /* background: white; */
+    color: white;
+  }
+`;
+
+
+export interface SingleToDo {
   id: string;
   title: string;
   description: string;
   state: string;
 }
 
-interface Props {
-  singleToDo: SingleToDo;
-  toDos: SingleToDo[];
-  setToDos: React.Dispatch<React.SetStateAction<SingleToDo[]>>;
-}
-
 function App() {
   const [toDos, setToDos] = useState<SingleToDo[]>([]);
   return (
-    <div className="App">
-      <div className="externalContainer">
-        <Form toDos={toDos} setToDos={setToDos} />
-        <div className="internalContainer">
-          {toDos.map((singleToDo: SingleToDo) => {
-            return (
-              <Todo
-                singleToDo={singleToDo}
-                key={singleToDo.id}
-                toDos={toDos}
-                setToDos={setToDos}
-              />
-            );
-          })}
+    <>
+      <GlobalStyle />
+      <div className="App">
+        <div className="externalContainer">
+          <Form toDos={toDos} setToDos={setToDos} />
+          <div className="internalContainer">
+            {toDos.map((singleToDo: SingleToDo) => {
+              return (
+                <Todo
+                  singleToDo={singleToDo}
+                  key={singleToDo.id}
+                  toDos={toDos}
+                  setToDos={setToDos}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

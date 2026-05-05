@@ -1,38 +1,45 @@
-import { useState } from "react";
+import { useState, type Dispatch, type SetStateAction } from "react";
+import { type SingleToDo } from "./App";
 
-function Todo({ singleToDo, toDos, setToDos }) {
-  const [rowState, setRowState] = useState(singleToDo.state);
+interface Props {
+  singleToDo: SingleToDo;
+  toDos: SingleToDo[];
+  setToDos: Dispatch<SetStateAction<SingleToDo[]>>;
+}
 
-  // if the ToDo is done I delete it from the array of objects
-  // use useEffect() for avoiding the reRender
-  if (rowState === "Done") {
-    let currentTodos = [...toDos];
-    let newTodos = currentTodos.filter((toDo) => toDo.id !== singleToDo.id);
-    setToDos(newTodos);
+function Todo({ singleToDo, toDos, setToDos }: Props) {
+  const [showDescription, setShowDescription] = useState(false);
+
+  function handleDelete() {
+    setToDos(toDos.filter((todo) => todo.id !== singleToDo.id));
   }
+
+function handleToggleState() {
+    setToDos(
+      toDos.map((todo) =>
+        todo.id === singleToDo.id
+          ? { ...todo, state: todo.state === "Not started" ? "Started" : "Not started" }
+          : todo
+      )
+    );
+  }
+
   return (
-    <>
+    <div className="RowToDo">
       <div className="toDoRowWrap">
-        <div
-          className={`RowToDo ${
-            rowState === "Not started" ? "notStarted" : "started"
-          }`}
+        <span
+          className={singleToDo.state === "Started" ? "started" : "notStarted"}
+          onClick={() => setShowDescription(!showDescription)}
         >
           {singleToDo.title}
-          <select
-            name=""
-            id=""
-            value={rowState}
-            onChange={(e) => setRowState(e.target.value)}
-          >
-            <option value="Not started">Not started</option>
-            <option value="Started">Started</option>
-            <option value="Done">Done</option>
-          </select>
-        </div>
-        <button onClick={() => alert(singleToDo.description)}>info</button>
+        </span>
+        {showDescription && <p>{singleToDo.description}</p>}
       </div>
-    </>
+      <div>
+        <button onClick={handleToggleState}>{singleToDo.state}</button>
+        <button onClick={handleDelete}>Delete</button>
+      </div>
+    </div>
   );
 }
 

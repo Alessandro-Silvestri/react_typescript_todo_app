@@ -1,5 +1,14 @@
-import { useState } from "react";
-import Todo from './Todo';
+import { useState, type Dispatch, type SetStateAction } from "react";
+import { type SingleToDo } from "./App";
+import styled from "styled-components";
+
+// style
+const FormStyled = styled.form`
+  max-width: 480px;
+  .form-label{
+    font-weight: bold;
+  }
+`
 
 interface ToDos {
   id: string;
@@ -8,7 +17,12 @@ interface ToDos {
   state: string;
 }
 
-function Form({ toDos, setToDos }) {
+interface FormProps {
+  toDos: SingleToDo[];
+  setToDos: Dispatch<SetStateAction<ToDos[]>>;
+}
+
+function Form({ toDos, setToDos }:FormProps) {
   const [toDoDescription, setToDoDescription] = useState("");
   const [toDoTitle, setToDoTitle] = useState("");
   function handleAddTodo() {
@@ -24,7 +38,7 @@ function Form({ toDos, setToDos }) {
   }
 
   return (
-    <form onSubmit={(e) => e.preventDefault()}>
+    <FormStyled onSubmit={(e) => e.preventDefault()}>
       To Do input:
       <input
         type="text"
@@ -51,7 +65,7 @@ function Form({ toDos, setToDos }) {
           setToDoDescription(e.target.value);
         }}
       ></textarea>
-    </form>
+    </FormStyled>
   );
 }
 
