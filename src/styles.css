@@ -1,0 +1,50 @@
+/* debug */
+/* div {
+  border: 1px solid red;
+} */
+
+.App {
+  font-family: sans-serif;
+}
+
+textarea {
+  margin-top: 10px;
+  width: 100%;
+}
+.externalContainer {
+  border: 1px solid black;
+  padding: 20px;
+}
+
+.internalContainer {
+  border: 1px solid black;
+  padding: 20px;
+  margin-top: 50px;
+}
+
+button,
+input {
+  margin-left: 5px;
+}
+
+.RowToDo {
+  margin-top: 10px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toDoRowWrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.notStarted {
+  background-color: tomato;
+}
+
+.started {
+  background-color: lightgreen;
+}
