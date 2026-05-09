@@ -1,14 +1,12 @@
 import { useState, type Dispatch, type SetStateAction } from "react";
 import { type SingleToDo } from "./App";
-import styled from "styled-components";
-
-// style
-const FormStyled = styled.form`
-  max-width: 480px;
-  .form-label{
-    font-weight: bold;
-  }
-`
+import {
+  FormStyled,
+  FormLabelStyled,
+  ButtonStyled,
+  TextAreaStyled,
+  InputTypeText,
+} from "./Form.elements";
 
 interface ToDos {
   id: string;
@@ -22,10 +20,17 @@ interface FormProps {
   setToDos: Dispatch<SetStateAction<ToDos[]>>;
 }
 
-function Form({ toDos, setToDos }:FormProps) {
+function Form({ toDos, setToDos }: FormProps) {
   const [toDoDescription, setToDoDescription] = useState("");
   const [toDoTitle, setToDoTitle] = useState("");
-  function handleAddTodo() {
+
+  function handleAddTodo(): void {
+    // edge case: empty field
+    if (toDoDescription === "" || toDoTitle === "") {
+      alert("Wrong input");
+      return;
+    }
+
     setToDos([
       ...toDos,
       {
@@ -39,14 +44,14 @@ function Form({ toDos, setToDos }:FormProps) {
 
   return (
     <FormStyled onSubmit={(e) => e.preventDefault()}>
-      To Do input:
-      <input
+      <FormLabelStyled>To Do input:</FormLabelStyled>
+      <InputTypeText
         type="text"
         placeholder="To do Title"
         value={toDoTitle}
         onChange={(e) => setToDoTitle(e.target.value)}
       />
-      <button
+      <ButtonStyled
         onClick={() => {
           handleAddTodo();
           setToDoTitle("");
@@ -54,9 +59,9 @@ function Form({ toDos, setToDos }:FormProps) {
         }}
       >
         Add
-      </button>
+      </ButtonStyled>
       <br />
-      <textarea
+      <TextAreaStyled
         name=""
         id=""
         placeholder="Description"
@@ -64,7 +69,7 @@ function Form({ toDos, setToDos }:FormProps) {
         onChange={(e) => {
           setToDoDescription(e.target.value);
         }}
-      ></textarea>
+      ></TextAreaStyled>
     </FormStyled>
   );
 }

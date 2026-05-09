@@ -1,5 +1,6 @@
 import { useState, type Dispatch, type SetStateAction } from "react";
 import { type SingleToDo } from "./App";
+import { ButtonStyled, ToDoRowTitle, ToDoRowDescription, RowToDo } from "./Form.elements";
 
 interface Props {
   singleToDo: SingleToDo;
@@ -25,21 +26,21 @@ function handleToggleState() {
   }
 
   return (
-    <div className="RowToDo">
-      <div className="toDoRowWrap">
-        <span
+    <RowToDo>
+      <div>
+        <ToDoRowTitle
           className={singleToDo.state === "Started" ? "started" : "notStarted"}
           onClick={() => setShowDescription(!showDescription)}
         >
           {singleToDo.title}
-        </span>
-        {showDescription && <p>{singleToDo.description}</p>}
+        </ToDoRowTitle>
+        {showDescription && <ToDoRowDescription>{singleToDo.description}</ToDoRowDescription>}
       </div>
       <div>
-        <button onClick={handleToggleState}>{singleToDo.state}</button>
-        <button onClick={handleDelete}>Delete</button>
+        <ButtonStyled onClick={handleToggleState}>{singleToDo.state}</ButtonStyled>
+        <ButtonStyled onClick={handleDelete}>Delete</ButtonStyled>
       </div>
-    </div>
+    </RowToDo>
   );
 }
 
