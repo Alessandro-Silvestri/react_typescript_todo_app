@@ -53,7 +53,7 @@ export const InputTypeText = styled.input`
   font-size: 14px;
   outline: none;
   transition: border-color 0.2s;
-  background: #333333;
+  background: ${(props)=>{return props.theme.bgInputs}};
   color: white;
 `;
 
@@ -69,7 +69,7 @@ export const TextAreaStyled = styled.textarea`
   min-height: 80px;
   outline: none;
   transition: border-color 0.2s;
-  background: #333333;
+  background: ${(props)=>{return props.theme.bgInputs}};
   color: white;
   font-family: "Roboto", "Open Sans", sans-serif;
 
