@@ -4,7 +4,12 @@ import Form from "./Form";
 import Todo from "./Todo";
 import { InternalContainer } from "./Form.elements";
 // style
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle, ThemeProvider } from "styled-components";
+
+const theme = {
+  bgInputs: "#333333",
+};
+
 const GlobalStyle = createGlobalStyle`
   body{
     padding: 20px;
@@ -27,7 +32,7 @@ export interface SingleToDo {
 function App() {
   const [toDos, setToDos] = useState<SingleToDo[]>([]);
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <GlobalStyle />
       <div className="App">
         <Form toDos={toDos} setToDos={setToDos} />
@@ -44,7 +49,7 @@ function App() {
           })}
         </InternalContainer>
       </div>
-    </>
+    </ThemeProvider>
   );
 }
 
